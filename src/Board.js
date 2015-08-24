@@ -79,12 +79,22 @@
     //
     // test if a specific row on this board contains a conflict
     hasRowConflictAt: function(rowIndex) {
-      return false; // fixme
+      // test to be used in filter to determine if element is a 1
+      var test = function ( value ) {
+        return !!value;
+      };
+      // return true if more than 1 1
+      return _.filter( this.get( rowIndex ), test ).length > 1
     },
 
     // test if any rows on this board contain conflicts
     hasAnyRowConflicts: function() {
-      return false; // fixme
+      // test to be used in some to determine if there is a row conflict
+      var rowConflict = function( value, index, list ) {
+        return this.hasRowConflictAt( index );
+      };
+      // return true if there are any row conflicts
+      return _.some( this.rows( ), rowConflict.bind( this ) /*?*/ );
     },
 
 
@@ -94,12 +104,22 @@
     //
     // test if a specific column on this board contains a conflict
     hasColConflictAt: function(colIndex) {
-      return false; // fixme
+      // test to be used in filter to determine if element is a 1
+      var test = function ( row ) {
+        return !!row[colIndex];
+      };
+      // return true if there is more than 1 1
+      return _.filter( this.rows( ), test ).length > 1;
     },
 
     // test if any columns on this board contain conflicts
     hasAnyColConflicts: function() {
-      return false; // fixme
+      // test to be used in some to determine if there is a column conflict
+      var colConflict = function( value, index, list ) {
+        return this.hasColConflictAt( index );
+      };
+      // return true if there are any column conflicts
+      return _.some( this.rows( )[0], colConflict.bind( this ) /*?*/ );
     },
 
 
@@ -109,12 +129,32 @@
     //
     // test if a specific major diagonal on this board contains a conflict
     hasMajorDiagonalConflictAt: function(majorDiagonalColumnIndexAtFirstRow) {
-      return false; // fixme
+      // test to be used in filter to determine if element is a 1
+      var test = function ( row, rowIndex ) {
+        var colIndex = rowIndex + majorDiagonalColumnIndexAtFirstRow;
+        if ( colIndex >= 0 && colIndex < this.rows( ).length ) {
+          return !!row[colIndex];
+        } else {
+          return false;
+        }
+      };
+      // return true if there is more than 1 1
+      return _.filter( this.rows( ), test.bind( this ) ).length > 1;
     },
 
     // test if any major diagonals on this board contain conflicts
     hasAnyMajorDiagonalConflicts: function() {
-      return false; // fixme
+      // create array of diagonal indices
+      var diagonalIndices = [];
+      for ( var i = -( this.rows( ).length - 1 ); i < this.rows( ).length; i++ ) {
+        diagonalIndices.push( i );
+      }
+      // test to be used in some to determine if there is a diagonal conflict
+      var diagonalConflict = function ( majorDiagonalColumnIndexAtFirstRow ) {
+        return this.hasMajorDiagonalConflictAt( majorDiagonalColumnIndexAtFirstRow );
+      };
+      // return true if there is at least one diagonal conflict
+      return _.some( diagonalIndices, diagonalConflict.bind( this ) /*?*/ );
     },
 
 
@@ -124,12 +164,32 @@
     //
     // test if a specific minor diagonal on this board contains a conflict
     hasMinorDiagonalConflictAt: function(minorDiagonalColumnIndexAtFirstRow) {
-      return false; // fixme
+      // test to be used in filter to determine if element is a 1
+      var test = function ( row, rowIndex ) {
+        var colIndex = minorDiagonalColumnIndexAtFirstRow - rowIndex;
+        if ( colIndex >= 0 && colIndex < this.rows( ).length ) {
+          return !!row[colIndex];
+        } else {
+          return false;
+        }
+      };
+      // return true if there is more than 1 1
+      return _.filter( this.rows( ), test.bind( this ) ).length > 1;
     },
 
     // test if any minor diagonals on this board contain conflicts
     hasAnyMinorDiagonalConflicts: function() {
-      return false; // fixme
+      // create array of diagonalIndices
+      var diagonalIndices = [];
+      for ( var i = 0; i < this.rows( ).length - 1; i++) {
+        diagonalIndices.push( i );
+      }
+      // test to be used in some to determine if there is a diagonal conflict
+      var diagonalConflict = function ( minorDiagonalColumnIndexAtFirstRow ) {
+        return this.hasMinorDiagonalConflictAt( minorDiagonalColumnIndexAtFirstRow );
+      };
+      // return true if there is at least one diagonal conflict
+      return _.some( diagonalIndices, diagonalConflict.bind( this ) /*?*/ );
     }
 
     /*--------------------  End of Helper Functions  ---------------------*/
