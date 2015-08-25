@@ -1,0 +1,1 @@
+var Q=function(n){var a=0;var c=0;var d=0;var m=0;var r=function(i){for(var j=0;j<n;j++){if(!((c&(1<<j))|(d&(1<<(j-i+n-1)))|(m&(1<<(j+i))))){c=c^(1<<j);d=d^(1<<(j-i+n-1));m=m^(1<<(j+i));if(i===n-1){a++;}else{r(i+1);}c=c^(1<<j);d=d^(1<<(j-i+n-1));m=m^(1<<(j+i));}}};r(0);return a;};

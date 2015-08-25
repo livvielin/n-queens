@@ -108,21 +108,15 @@ window.findNQueensSolution = function(n) {
   var board = new Board ( { "n" : n } );
 
   var found = false;
-
-  var conflicts;
   //recursive function that takes a rowIndex as an argument
   var recurseThroughSolutions = function( rowIndex ) {
     for( var columnIndex = 0; columnIndex < n; columnIndex++ ) {
       // place a queen
       board.togglePiece( rowIndex, columnIndex );
-      // there can't be column conflicts
-      conflicts = board.hasColConflictAt( columnIndex );
-      // or major diagonal conflicts
-      conflicts = conflicts || board.hasMajorDiagonalConflictAt( columnIndex - rowIndex );
-      // or minor diagonal conflicts
-      conflicts = conflicts || board.hasMinorDiagonalConflictAt( columnIndex + rowIndex );
       // we know there are no row conflicts.
-      if( conflicts === false ) {
+      if( (board.hasColConflictAt( columnIndex ) ||
+          board.hasMajorDiagonalConflictAt( columnIndex - rowIndex ) ||
+          board.hasMinorDiagonalConflictAt( columnIndex + rowIndex )) === false ) {
         if( rowIndex === n - 1 ) {
           // BASS CASE!
           found = true;
@@ -151,20 +145,14 @@ window.countNQueensSolutions = function(n) {
   // creating a new board
   var board = new Board( { "n" : n } );
   var solutionCount = 0;
-  var conflicts;
   //recursive function that takes a rowIndex as an argument
   var recurseThroughSolutions = function( rowIndex ) {
     for( var columnIndex = 0; columnIndex < n; columnIndex++ ) {
       // place a queen
       board.togglePiece( rowIndex, columnIndex );
-      // there can't be column conflicts
-      conflicts = board.hasColConflictAt( columnIndex );
-      // or major diagonal conflicts
-      conflicts = conflicts || board.hasMajorDiagonalConflictAt( columnIndex - rowIndex );
-      // or minor diagonal conflicts
-      conflicts = conflicts || board.hasMinorDiagonalConflictAt( columnIndex + rowIndex );
-      // we know there are no row conflicts.
-      if( conflicts === false ) {
+      if( (board.hasColConflictAt( columnIndex ) ||
+          board.hasMajorDiagonalConflictAt( columnIndex - rowIndex ) ||
+          board.hasMinorDiagonalConflictAt( columnIndex + rowIndex )) === false ) {
         if( rowIndex === n - 1 ) {
           // BASS CASE!
           solutionCount++;
