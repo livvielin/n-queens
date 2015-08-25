@@ -55,26 +55,43 @@ window.countNRooksSolutions = function(n) {
 
   // recursive function that takes a row index as an argument
   var recurseThroughSolutions = function ( rowIndex ) {
-    // if row index equals n - 1
-    if ( rowIndex === n - 1 ) {
-      // one solution found
-      solutionCount++;
-      return;
-    } else {
-      // for each place where a rook could be placed
-      for ( var columnIndex = 0; columnIndex < n; columnIndex++ ) {
-        // place rook in column
-        board.togglePiece( rowIndex, columnIndex );
-        // check if there is a conflict
-        if ( board.hasColConflictAt( columnIndex ) === false ) {
-          // recurse over next row
+    for( var columnIndex = 0; columnIndex < n; columnIndex++ ) {
+      // place a rook at rowIndex, columnIndex
+      board.togglePiece( rowIndex, columnIndex );
+      // check if there is a conflict.
+      if( board.hasColConflictAt( columnIndex ) === false ) {
+        if( rowIndex === n - 1 ) {
+          // found a solution
+          solutionCount++;
+        } else {
+          // recurse over the next row.
           recurseThroughSolutions( rowIndex + 1 );
         }
-        // remove rook
-        board.togglePiece( rowIndex, columnIndex );
       }
+      // remove rook
+      board.togglePiece( rowIndex, columnIndex );
     }
   };
+  //   // if row index equals n - 1
+  //   if ( rowIndex === n - 1 ) {
+  //     // one solution found
+  //     solutionCount++;
+  //     return;
+  //   } else {
+  //     // for each place where a rook could be placed
+  //     for ( var columnIndex = 0; columnIndex < n; columnIndex++ ) {
+  //       // place rook in column
+  //       board.togglePiece( rowIndex, columnIndex );
+  //       // check if there is a conflict
+  //       if ( board.hasColConflictAt( columnIndex ) === false ) {
+  //         // recurse over next row
+  //         recurseThroughSolutions( rowIndex + 1 );
+  //       }
+  //       // remove rook
+  //       board.togglePiece( rowIndex, columnIndex );
+  //     }
+  //   }
+  // };
 
   recurseThroughSolutions( 0 );
 
@@ -151,8 +168,6 @@ window.countNQueensSolutions = function(n) {
         if( rowIndex === n - 1 ) {
           // BASS CASE!
           solutionCount++;
-          board.togglePiece( rowIndex, columnIndex );
-          return; // AKA bounce!
         } else {
           // recurse over next row
           recurseThroughSolutions( rowIndex + 1 );
