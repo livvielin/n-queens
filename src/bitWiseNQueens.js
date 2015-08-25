@@ -1,3 +1,4 @@
+// N queens own algorithm 1.
 var countNQueensSolution = function( n ) {
   var count = 0;
   var columnConflicts = 0;
