@@ -1,5 +1,5 @@
 // N queencounter own algorithm # 2
-var Q = function( n ) {
+var N = function( n ) {
   var a = 0;
   var motherload = Math.pow( 2, n ) - 1;
   var recurse = function ( C, R, M, m ) {
@@ -28,7 +28,7 @@ var Q = function( n ) {
 // N queens from Martin Richards! The man.
 var countNQueensSolution = function(n) {
   var a = 0;
-  var lim = Math.pow(2,n)-1;
+  var lim = (1<<n)-1;
   var r = function(C,R,M,m) {
     var next;
     var p;

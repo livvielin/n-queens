@@ -81,10 +81,10 @@ describe('solvers', function() {
 
   describe('countNQueensBitWise()', function() {
 
-    it('finds the number of valid solutions for n of 0-14 bitwise', function() {
-      _.range(0, 16).map(function(n) {
+    it('finds the number of valid solutions for n of 0-15 bitwise', function() {
+      _.range(0, 20).map(function(n) {
         var solutionCount = countNQueensSolution(n);
-        var expectedSolutionCount = [0, 1, 0, 0, 2, 10, 4, 40, 92,352, 724, 2680, 14200, 73712, 365596, 2279184][n];
+        var expectedSolutionCount = [0, 1, 0, 0, 2, 10, 4, 40, 92,352, 724, 2680, 14200, 73712, 365596, 2279184, 14772512, 95815104, 666090624, 4968057848][n];
 
         expect(solutionCount).to.be.equal(expectedSolutionCount);
       });

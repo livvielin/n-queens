@@ -13,6 +13,7 @@
     <script src="lib/mocha/mocha.js"></script>
     <script src="lib/chai/chai.js"></script>
     <script src="lib/sinon/sinon.js"></script>
+    <script src='lib/parallelize.js'></script>
     <script>
       mocha.setup('bdd');
       window.expect = chai.expect;
@@ -22,15 +23,16 @@
     </script>
 
     <!-- source files -->
-    <script src="src/Board.js"></script>
-    <script src="src/BoardView.js"></script>
-    <script src="src/solvers.js"></script>
-    <script src="src/bitWiseNQueens2.js"></script>
+<!--     // <script src="src/Board.js"></script>
+    // <script src="src/BoardView.js"></script>
+    // <script src="src/solvers.js"></script>
+    // <script src="src/bitWiseNQueens2.js"></script> -->
+    <script src='src/server.js'></script>
 
     <!-- tests -->
-    <script src="spec/BoardSpec.js"></script>
-    <script src="spec/BoardViewSpec.js"></script>
-    <script src="spec/solversSpec.js"></script>
+<!--     // <script src="spec/BoardSpec.js"></script>
+    // <script src="spec/BoardViewSpec.js"></script>
+    // <script src="spec/solversSpec.js"></script> -->
   </head>
   <body>
     <div id="mocha"></div>
